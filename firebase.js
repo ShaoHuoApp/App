@@ -6,7 +6,6 @@ import Config from "react-native-config";
 
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-console.log(Config.API_KEY);
 const firebaseConfig = {
 //   apiKey: Config.API_KEY,
 //   authDomain: Config.AUTH_DOMAIN,
