@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Button, TextInput } from 'react-native';
-import { auth, createUserWithEmailAndPassword } from '../../firebase';
+import { auth, createUserWithEmailAndPassword, db, collection, doc, setDoc } from '../../firebase';
 
 export class Register extends Component {
   constructor(props) {
@@ -19,6 +19,11 @@ export class Register extends Component {
     const { email, password, name } = this.state;
     createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
+        const usersRef = collection(db, "users")
+        setDoc(doc(usersRef, auth.currentUser.uid), {
+            name,
+            email
+        }) 
         console.log(result)
     })
     .catch((error) => {

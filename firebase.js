@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getDatabase, ref as databaseRef, set as databaseSet, onValue as databaseOnValue, get as databaseGet, child as databaseChild, off as databaseOff, query as databaseQuery, orderByChild, equalTo } from "firebase/database";
+import { getFirestore, collection, doc, setDoc } from "firebase/firestore"; 
 import Config from "react-native-config";
 
 
@@ -27,6 +28,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const storage = getStorage(app);
 const database = getDatabase(app);
+const db = getFirestore(app);
 
 export {
   storage,
@@ -48,5 +50,10 @@ export {
   databaseOff,
   databaseQuery,
   orderByChild,
-  equalTo
+  equalTo,
+
+  db,
+  collection,
+  doc,
+  setDoc
 };
