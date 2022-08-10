@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getStorage, ref as storageRef, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getDatabase, ref as databaseRef, set as databaseSet, onValue as databaseOnValue, get as databaseGet, child as databaseChild, off as databaseOff, query as databaseQuery, orderByChild, equalTo } from "firebase/database";
 import { getFirestore, collection, doc, setDoc, getDoc } from "firebase/firestore"; 
 import Config from "react-native-config";
@@ -33,6 +33,7 @@ const db = getFirestore(app);
 export {
   storage,
   storageRef,
+  uploadBytes,
   uploadBytesResumable,
   getDownloadURL,
 
