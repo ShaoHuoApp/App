@@ -4,8 +4,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LandingScreen from "./components/auth/Landing";
 import RegisterScreen from "./components/auth/Register";
+
 import LoginScreen from "./components/auth/Login";
 import MainScreen from "./components/Main";
+import AddScreen from "./components/Main/Add";
+
 import { auth, onAuthStateChanged } from "./firebase";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -73,6 +76,7 @@ export class App extends Component {
               component={MainScreen}
               options={{ headerShown: false }}
             />
+            <Stack.Screen name="Add" component={AddScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
