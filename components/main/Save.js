@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { View, TextInput, Image, Button } from "react-native";
 import {
   auth,
+  collection,
+  firestore,
+  doc,
+  addDoc,
   storage,
   storageRef,
   uploadBytesResumable,
   getDownloadURL,
+  serverTimestamp
 } from "../../firebase";
 
 export default function Save(props) {
@@ -13,11 +18,12 @@ export default function Save(props) {
 
   const uploadImage = async () => {
     const uri = props.route.params.image;
-    const childPath = `post/${auth.currentUser.uid}/${Math.random().toString(36)}`;
+    const childPath = `post/${auth.currentUser.uid}/${Math.random().toString(
+      36
+    )}`;
     console.log(childPath);
 
     const response = await fetch(uri);
-    console.log(response)
     const blob = await response.blob();
 
     const imageRef = storageRef(storage, childPath);
@@ -53,10 +59,23 @@ export default function Save(props) {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          savePostData(downloadURL);
           console.log("File available at", downloadURL);
         });
       }
     );
+  };
+
+  const savePostData = (downloadURL) => {
+    const postsRef = collection(firestore, "posts")
+    const userPostsRef = collection(doc(postsRef, auth.currentUser.uid), "userPosts")
+    addDoc(userPostsRef, {
+        downloadURL,
+        caption,
+        creation: serverTimestamp(),
+    }).then(function () {
+        props.navigation.popToTop();
+    });
   };
 
   return (

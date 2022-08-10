@@ -78,7 +78,7 @@ export class App extends Component {
               options={{ headerShown: false }}
             />
             <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
-            <Stack.Screen name="Save" component={SaveScreen} /> 
+            <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation}/> 
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

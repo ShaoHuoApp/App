@@ -1,9 +1,9 @@
 import { USER_STATE_CHANGE } from '../constants/index'
-import { auth, db, collection, doc, getDoc } from "../../firebase"
+import { auth, firestore, collection, doc, getDoc } from "../../firebase"
 
 export function fetchUser() {
     return ((dispatch) => {
-        const usersRef = collection(db, "users")
+        const usersRef = collection(firestore, "users")
         getDoc(doc(usersRef, auth.currentUser.uid))
         .then((snapshot) => {
             if(snapshot.exists) {
