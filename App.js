@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./redux/reducers";
 
-const store = configureStore({reducer: rootReducer});
+const store = configureStore({ reducer: rootReducer });
 const Stack = createStackNavigator();
 
 export class App extends Component {
@@ -65,8 +65,16 @@ export class App extends Component {
     }
 
     return (
-      <Provider store = {store}>
-        <MainScreen />
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen
+              name="Main"
+              component={MainScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
     );
   }
