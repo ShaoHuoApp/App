@@ -7,7 +7,7 @@ import RegisterScreen from "./components/auth/Register";
 
 import LoginScreen from "./components/auth/Login";
 import MainScreen from "./components/Main";
-import AddScreen from "./components/Main/Add";
+import AddScreen from "./components/main/Add";
 
 import { auth, onAuthStateChanged } from "./firebase";
 import { Provider } from "react-redux";
