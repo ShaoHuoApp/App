@@ -1,22 +1,70 @@
-import React from "react";
-import { StyleSheet, View, Text, Image, FlatList } from "react-native";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View, Text, Image, FlatList } from "react-native"
+import { connect } from "react-redux"
+import {
+  auth,
+  collection,
+  firestore,
+  doc,
+  getDoc,
+  getDocs,
+  firestoreQuery,
+  orderBy,
+} from "../../firebase";
 
 function Profile(props) {
-  const { currentUser, posts } = props;
-  console.log({ currentUser, posts });
+  const [userPosts, setUserPosts] = useState([]);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const { currentUser, posts } = props;
+
+    if (props.route.params.uid === auth.currentUser.uid) {
+      setUser(currentUser);
+      setUserPosts(posts);
+    } else {
+      const usersRef = collection(firestore, "users");
+      getDoc(doc(usersRef, props.route.params.uid)).then((snapshot) => {
+        if (snapshot.exists) {
+          setUser(snapshot.data());
+        } else {
+          console.log("does not exist");
+        }
+      });
+      const postsRef = collection(firestore, "posts");
+      const userPostsRef = collection(
+        doc(postsRef, props.route.params.uid),
+        "userPosts"
+      );
+      getDocs(firestoreQuery(userPostsRef, orderBy("creation", "asc"))).then(
+        (snapshot) => {
+          let posts = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+            return { id, ...data };
+          });
+          setUserPosts(posts);
+        }
+      );
+    }
+  }, [props.route.params.uid]);
+
+  if (user === null) {
+    return <View />;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.containerInfo}>
-        <Text>{currentUser.name}</Text>
-        <Text>{currentUser.email}</Text>
+        <Text>{user.name}</Text>
+        <Text>{user.email}</Text>
       </View>
 
       <View style={styles.containerGallery}>
         <FlatList
           numColumns={3}
           horizontal={false}
-          data={posts}
+          data={userPosts}
           renderItem={({ item }) => (
             <View style={styles.containerImage}>
               <Image style={styles.image} source={{ uri: item.downloadURL }} />
@@ -31,7 +79,6 @@ function Profile(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
   },
   containerInfo: {
     margin: 20,

@@ -7,7 +7,7 @@ import {
   getDoc,
   getDocs,
   firestoreQuery,
-  orderBy,
+  orderBy
 } from "../../firebase";
 
 export function fetchUser() {
