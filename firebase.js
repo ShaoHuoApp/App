@@ -36,6 +36,7 @@ import {
   query as firestoreQuery,
   orderBy,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 import Config from "react-native-config";
 
@@ -94,4 +95,5 @@ export {
   firestoreQuery,
   orderBy,
   where,
+  onSnapshot,
 };

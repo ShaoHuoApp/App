@@ -1,4 +1,8 @@
-import { USER_STATE_CHANGE, USER_POSTS_STATE_CHANGE } from "../constants/index";
+import {
+  USER_STATE_CHANGE,
+  USER_POSTS_STATE_CHANGE,
+  USER_FOLLOWING_STATE_CHANGE,
+} from "../constants/index";
 import {
   auth,
   firestore,
@@ -7,7 +11,8 @@ import {
   getDoc,
   getDocs,
   firestoreQuery,
-  orderBy
+  orderBy,
+  onSnapshot,
 } from "../../firebase";
 
 export function fetchUser() {
@@ -41,5 +46,22 @@ export function fetchUserPosts() {
         dispatch({ type: USER_POSTS_STATE_CHANGE, posts });
       }
     );
+  };
+}
+
+export function fetchUserFollowing() {
+  return (dispatch) => {
+    const followingRef = collection(firestore, "following");
+    const userFollowingRef = collection(
+      doc(followingRef, auth.currentUser.uid),
+      "userFollowing"
+    );
+    onSnapshot(userFollowingRef, (snapshot) => {
+      let following = snapshot.docs.map((doc) => {
+        const id = doc.id;
+        return id;
+      });
+      dispatch({ type: USER_FOLLOWING_STATE_CHANGE, following });
+    });
   };
 }
