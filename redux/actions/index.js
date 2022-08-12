@@ -43,3 +43,25 @@ export function fetchUserPosts() {
     );
   };
 }
+
+export function fetchAllPosts() {
+  return (dispatch) => {
+    const postsRef = collection(firestore, "posts");
+    // const userPostsRef = collection(
+    //   doc(postsRef, auth.currentUser.uid),
+    //   "userPosts"
+    // );
+    getDocs(firestoreQuery(postsRef, orderBy("creationTime", "asc"))).then(
+      (snapshot) => {
+        let posts = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          const id = doc.id;
+          return { id, ...data };
+        });
+        console.log("posts");
+        console.log(posts);
+        dispatch({ type: USER_POSTS_STATE_CHANGE, posts });
+      }
+    );
+  };
+}
