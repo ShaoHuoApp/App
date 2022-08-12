@@ -9,6 +9,9 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+fisebase.js
+package-lock.json
+yarn.lock
 
 # macOS
 .DS_Store
