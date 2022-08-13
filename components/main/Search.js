@@ -34,7 +34,7 @@ export default function Search(props) {
   return (
     <View>
       <TextInput
-        placeholder="Type Here..."
+        placeholder="Search Users..."
         onChangeText={(search) => fetchUsers(search)}
       />
 
