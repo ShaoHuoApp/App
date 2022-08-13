@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, FlatList, Button } from "react-native";
 import { connect } from "react-redux";
 import {
   auth,
+  signOut,
   collection,
   firestore,
   doc,
@@ -75,6 +76,10 @@ function Profile(props) {
     deleteDoc(doc(userFollowingRef, props.route.params.uid));
   };
 
+  const onLogout = () => {
+    signOut(auth);
+}
+
   if (user === null) {
     return <View />;
   }
@@ -93,7 +98,9 @@ function Profile(props) {
               <Button title="Follow" onPress={() => onFollow()} />
             )}
           </View>
-        ) : null}
+        ) : (
+          <Button title="Logout" onPress={() => onLogout()} />
+        )}
       </View>
 
       <View style={styles.containerGallery}>
