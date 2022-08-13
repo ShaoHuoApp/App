@@ -5,6 +5,7 @@ import { TextInput } from "react-native-paper";
 import Comment from "./Comment.js";
 
 function showAllComments() {
+  console.log("show all comments");
   // TODO
   // open a new tab and show all comments
 }
@@ -21,8 +22,7 @@ function Comments(props) {
           renderItem={({ item }) => <Comment post={item} />}
         />
       </View>
-      <TextInput style={styles.commentInput} placeholder="Comment here.." />
-      <Button onCLick={showAllComments}>Show All</Button>
+      {/* <Button onCLick={showAllComments}>Show All</Button> */}
     </View>
   );
 }
