@@ -51,7 +51,7 @@ export function fetchAllPosts() {
     //   doc(postsRef, auth.currentUser.uid),
     //   "userPosts"
     // );
-    getDocs(firestoreQuery(postsRef, orderBy("creationTime", "asc"))).then(
+    getDocs(firestoreQuery(postsRef, orderBy("creation", "asc"))).then(
       (snapshot) => {
         let posts = snapshot.docs.map((doc) => {
           const data = doc.data();
