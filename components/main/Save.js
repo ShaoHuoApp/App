@@ -6,6 +6,7 @@ import {
   firestore,
   doc,
   addDoc,
+  setDoc,
   storage,
   storageRef,
   uploadBytesResumable,
@@ -67,13 +68,21 @@ export default function Save(props) {
   };
 
   const savePostData = (downloadURL) => {
+    // save to the posts table
     const postsRef = collection(firestore, "posts")
-    const userPostsRef = collection(doc(postsRef, auth.currentUser.uid), "userPosts")
-    addDoc(userPostsRef, {
+    //const userPostsRef = collection(doc(postsRef, auth.currentUser.uid), "userPosts")
+    // save to the current user table
+    const usersRef = collection(firestore, "users")
+    const userPostsRef = collection(doc(usersRef, auth.currentUser.uid),"userPosts");
+    addDoc(postsRef, {
+        user:auth.currentUser.uid,
         downloadURL,
         caption,
         creation: serverTimestamp(),
-    }).then(function () {
+    }).then(docRef => {
+        //postID = docRef.id
+        console.log(docRef.id);
+        setDoc(doc(userPostsRef, docRef.id), {});
         props.navigation.popToTop();
     });
   };

@@ -13,6 +13,7 @@ import {
   firestoreQuery,
   orderBy,
   onSnapshot,
+  where,
 } from "../../firebase";
 
 export function fetchUser() {
@@ -42,6 +43,28 @@ export function fetchUserPosts() {
           const id = doc.id;
           return { id, ...data };
         });
+        console.log(posts);
+        dispatch({ type: USER_POSTS_STATE_CHANGE, posts });
+      }
+    );
+  };
+}
+
+export function fetchAllPosts() {
+  return (dispatch) => {
+    const postsRef = collection(firestore, "posts");
+    // const userPostsRef = collection(
+    //   doc(postsRef, auth.currentUser.uid),
+    //   "userPosts"
+    // );
+    getDocs(firestoreQuery(postsRef, orderBy("creation", "asc"))).then(
+      (snapshot) => {
+        let posts = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          const id = doc.id;
+          return { id, ...data };
+        });
+        console.log("posts");
         console.log(posts);
         dispatch({ type: USER_POSTS_STATE_CHANGE, posts });
       }

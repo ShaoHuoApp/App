@@ -48,14 +48,20 @@ const firebaseConfig = {
   //   storageBucket: Config.STORAGE_BUCKET,
   //   messagingSenderId: Config.MESSAGEING_SENDER_ID,
   //   appId: Config.APP_ID,
-  apiKey: "AIzaSyAuQmI8ARMUKeMgO0Btk4cJtVrx8m0eafw",
+  /**apiKey: "AIzaSyAuQmI8ARMUKeMgO0Btk4cJtVrx8m0eafw",
   authDomain: "shaohuo-5a709.firebaseapp.com",
   projectId: "shaohuo-5a709",
   storageBucket: "shaohuo-5a709.appspot.com",
   messagingSenderId: "474631129226",
   appId: "1:474631129226:web:e339d0512e03a8a37d0573",
-  measurementId: "G-FT5B2JX0C6",
-};
+  measurementId: "G-FT5B2JX0C6",*/
+  apiKey: "AIzaSyBWHsmk5XjJWkZSuYQfkP8XB23GlPAVrhg",
+  authDomain: "shaohuo-a285e.firebaseapp.com",
+  projectId: "shaohuo-a285e",
+  storageBucket: "shaohuo-a285e.appspot.com",
+  messagingSenderId: "963602629923",
+  appId: "1:963602629923:web:89cf5ad2df042457837896"
+  }
 console.log(firebaseConfig);
 
 const app = initializeApp(firebaseConfig);

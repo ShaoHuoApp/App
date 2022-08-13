@@ -21,6 +21,7 @@ function Profile(props) {
 
   useEffect(() => {
     const { currentUser, posts } = props;
+    console.log(auth.currentUser.uid)
 
     if (props.route.params.uid === auth.currentUser.uid) {
       setUser(currentUser);
