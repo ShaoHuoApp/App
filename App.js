@@ -15,7 +15,13 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./redux/reducers";
 
-const store = configureStore({ reducer: rootReducer });
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
 const Stack = createStackNavigator();
 
 export class App extends Component {
@@ -72,12 +78,17 @@ export class App extends Component {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen name="Main" component={MainScreen} />
             <Stack.Screen
-              name="Main"
-              component={MainScreen}
+              name="Add"
+              component={AddScreen}
+              navigation={this.props.navigation}
             />
-            <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation}/>
-            <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation}/> 
+            <Stack.Screen
+              name="Save"
+              component={SaveScreen}
+              navigation={this.props.navigation}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
